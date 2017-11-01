@@ -8,11 +8,25 @@
                     <div class="panel-heading">Użytkownik {{ $user->id }}</div>
 
                     <div class="panel-body ">
-                        <form action="{{ url('/users/' . $user->id) }}" method="POST">
+                        <img src="{{ asset('storage/users/' . $user->id . '/avatars/' . $user->avatar) }}" alt="Avatar image" class="img-responsive">
+                        <form action="{{ url('/users/' . $user->id) }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('PATCH') }}
 
                             <div class="row">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                                        <label for="name">Avatar</label>
+                                        <input type="file" name="avatar" class="form-control">
+
+                                        @if ($errors->has('avatar'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('avatar') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-10 col-sm-offset-1">
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <label for="name">Imie i nazwisko</label>

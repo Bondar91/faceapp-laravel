@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
             if($i === 1)
             {
                 DB::table('users')->insert([
-                    'name' => "Krystian Bondaruk",
-                    'email' => str_replace('-','', str_slug('$faker->safeEmailDomain')),
+                    'name' => 'Krystian Bondaruk',
+                    'email' => 'bondar91@gmail.com',
                     'sex' => 'm',
                     'password' => bcrypt($password),
                 ]);

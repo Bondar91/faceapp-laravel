@@ -73,6 +73,15 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->sex = $request->sex;
+
+        if ($request->file('avatar'))
+        {
+            $avatar_path = 'public/users/' . $id . '/avatars';
+            $upload_path = $request->file('avatar')->store($avatar_path);
+            $avatar_filename = str_replace($avatar_path . '/','', $upload_path);
+            $user->avatar = $avatar_filename;
+        }
+
         $user->save();
 
 //        Drugi sposób z uzyciem where i update działą
