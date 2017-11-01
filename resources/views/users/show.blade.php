@@ -13,6 +13,7 @@
                     </div>
 
                     <div class="panel-body text-center">
+                        <img src="{{ url('images/user-avatar/' . $user->id . '/250') }}" alt="Avatar image" class="thumbnail img-responsive">
                         <h2><a href="{{ url('/users/' . $user->id) }}">{{ $user->name }}</a></h2>
                         <p>
                             @if ( $user->sex == 'm' )

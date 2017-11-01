@@ -8,7 +8,10 @@
                     <div class="panel-heading">Użytkownik {{ $user->id }}</div>
 
                     <div class="panel-body ">
-                        <img src="{{ asset('storage/users/' . $user->id . '/avatars/' . $user->avatar) }}" alt="Avatar image" class="img-responsive">
+
+                        <img src="{{ url('images/user-avatar/' . $user->id . '/300') }}" alt="Avatar image" class="thumbnail img-responsive" style="margin:auto;">
+
+
                         <form action="{{ url('/users/' . $user->id) }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('PATCH') }}
