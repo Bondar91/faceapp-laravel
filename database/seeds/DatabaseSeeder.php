@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use App\Friend;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +17,16 @@ class DatabaseSeeder extends Seeder
 
         $faker = Faker::create('pl_PL');
 
+        //*********************** VARIABLES *****************************//
+
         $number_of_records = 20;
         $password = "123456";
 
-        for ($i = 1; $i <= $number_of_records; $i++)
+        //*********************** CREATE USERS *****************************//
+
+        for ($user_id = 1; $user_id <= $number_of_records; $user_id++)
         {
-            if($i === 1)
+            if($user_id === 1)
             {
                 DB::table('users')->insert([
                     'name' => 'Krystian Bondaruk',
@@ -53,6 +58,30 @@ class DatabaseSeeder extends Seeder
                     'password' => bcrypt($password),
                 ]);
 
+            }
+
+            //*********************** CREATE FRIENDSHIP *****************************//
+            for ($i = 1; $i <= $faker->numberBetween($min = 1, $max = $number_of_records-1); $i++)
+            {
+                $friend_id = $faker->numberBetween($min = 1, $max = $number_of_records);
+
+                $friendship = Friend::where([
+                    'user_id' => $user_id,
+                    'friend_id' => $friend_id,
+                ])->orWhere([
+                    'user_id' => $friend_id,
+                    'friend_id' => $user_id,
+                ])->exists();
+
+                if (!$friendship)
+                {
+                    DB::table('friends')->insert([
+                        'user_id' => $user_id,
+                        'friend_id' => $friend_id,
+                        'accepted' => 1,
+                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                    ]);
+                }
             }
         }
     }
