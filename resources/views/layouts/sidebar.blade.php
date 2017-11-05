@@ -20,10 +20,14 @@
             <p>{{ $user->email }}</p>
 
             @if (Auth::check() && $user->id !== Auth::id())
-                <form method="POST" action="{{ url('/friends/add/' . $user->id ) }}">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-success">Zaproś do znajomych</button>
-                </form>
+                @if (!friendship($user->id)->exists && !friendship($user->id)->accepted)
+                    <form method="POST" action="{{ url('/friends/add/' . $user->id ) }}">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-success">Zaproś do znajomych</button>
+                    </form>
+                @elseif (friendship($user->id)->exists && !friendship($user->id)->accepted)
+                    <button type="submit" class="btn btn-primary">Zaproszenie wysłane</button>
+                @endif
             @endif
         </div>
     </div>

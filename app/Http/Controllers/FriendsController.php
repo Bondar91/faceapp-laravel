@@ -15,7 +15,7 @@ class FriendsController extends Controller
      */
     public function index()
     {
-
+        echo friendship(1);
     }
 
 
@@ -27,10 +27,13 @@ class FriendsController extends Controller
      */
     public function add($friend_id)
     {
-        Friend::create([
-            'user_id' => Auth::id(),
-            'friend_id' => $friend_id,
-        ]);
+        if (!friendship($friend_id)->exists)
+        {
+            Friend::create([
+                'user_id' => Auth::id(),
+                'friend_id' => $friend_id,
+            ]);
+        }
 
         return back();
     }
