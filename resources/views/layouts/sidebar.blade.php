@@ -20,13 +20,30 @@
             <p>{{ $user->email }}</p>
 
             @if (Auth::check() && $user->id !== Auth::id())
-                @if (!friendship($user->id)->exists && !friendship($user->id)->accepted)
-                    <form method="POST" action="{{ url('/friends/add/' . $user->id ) }}">
+
+                @if (!friendship($user->id)->exists && !has_friend_invitation($user->id))
+                    <form method="POST" action="{{ url('/friends/' . $user->id ) }}">
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-success">Zaproś do znajomych</button>
                     </form>
+
+                @elseif (has_friend_invitation($user->id))
+                    <form method="POST" action="{{ url('/friends/' . $user->id ) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('PATCH') }}
+                        <button type="submit" class="btn btn-primary">Przyjmij zaproszenie</button>
+                    </form>
+
                 @elseif (friendship($user->id)->exists && !friendship($user->id)->accepted)
-                    <button type="submit" class="btn btn-primary">Zaproszenie wysłane</button>
+                    <button class="btn btn-success disabled">Zaproszenie wysłane</button>
+
+                @elseif (friendship($user->id)->exists && friendship($user->id)->accepted)
+                    <form method="POST" action="{{ url('/friends/' . $user->id) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">Usuń ze znajomych</button>
+                    </form>
+
                 @endif
             @endif
         </div>

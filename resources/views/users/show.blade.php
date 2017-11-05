@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
 
-            @include('layouts.sidebar');
+            @include('layouts.sidebar')
 
             <div class="col-md-7">
                 <div class="panel panel-default">

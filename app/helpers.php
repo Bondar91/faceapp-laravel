@@ -28,3 +28,13 @@ function friendship($friend_id)
 
     return $friendship;
 }
+
+function has_friend_invitation($friend_id)
+{
+    return Friend::where([
+        'user_id' => $friend_id,
+        'friend_id' => Auth::id(),
+        'accepted' => 0,
+    ])->exists();
+
+}
