@@ -18,6 +18,11 @@
                 @endif
             </p>
             <p>{{ $user->email }}</p>
+            <p>
+                <a href="{{ url('/users/' . $user->id . '/friends') }}">
+                    Znajomi <span class="label label-info">{{ $user->friends()->count() }}</span>
+                </a>
+            </p>
 
             @if (Auth::check() && $user->id !== Auth::id())
 
