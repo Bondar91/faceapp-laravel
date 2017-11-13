@@ -5,24 +5,24 @@
         <div class="row">
             @include('layouts.sidebar')
             <div class="col-md-7">
-                <div class="panel panel-default">
-                    <div class="panel-body text-center">
-                        <form method="POST" action="{{ url('posts/') }}">
-                            <div class="form-group{{ $errors->has('post_content') ? ' has-error' : '' }}">
-                                {{ csrf_field() }}
+                @if($user->id === Auth::id())
+                    <div class="panel panel-default">
+                        <div class="panel-body text-center">
 
-                                @if ($errors->has('post_content'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('post_content') }}</strong>
-                                    </span>
-                                @endif
-                                <textarea name="post_content" class="form-control" cols="30" rows="5" placeholder="O czym myślisz?"></textarea>
-                                <button type="submit" class="btn btn-default pull-right" style="margin-top: 10px;">Dodaj post!</button>
-                            </div>
-                        </form>
+                            @include('posts.create')
+
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                @foreach($posts as $post)
+
+                    @include('posts.single')
+
+                @endforeach
             </div>
+
+
         </div>
     </div>
 @endsection
