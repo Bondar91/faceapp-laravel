@@ -17,7 +17,7 @@
 
                 @foreach($posts as $post)
 
-                    @include('posts.single')
+                    @include('posts.include.single')
 
                 @endforeach
             </div>

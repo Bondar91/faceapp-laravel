@@ -3,16 +3,7 @@
 
         @if (Auth::Check() && $user->id === Auth::id())
 
-            <div class="dropdown pull-right">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                   <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                   <li>
-                       <a href="{{ url('posts/' . $post->id . '/edit') }}">Edytuj</a>
-                   </li>
-                </ul>
-            </div>
+            @include('posts.include.dropdown-menu')
 
         @endif
 

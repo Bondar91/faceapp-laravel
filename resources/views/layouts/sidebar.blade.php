@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             Użytkownik
-            @if($user->id === Auth::id())
+            @if(Auth::check() && $user->id === Auth::id())
                 <a href="{{ url('/users/' . $user->id . '/edit') }}" class="pull-right">Edytuj</a>
             @endif
         </div>
