@@ -9,6 +9,10 @@ use App\Post;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('post_permission', ['except' =>['show', 'store']]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +55,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -63,7 +69,18 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'post_content' => 'required|min:5'
+        ],[
+            'required' => 'Pole nie może być puste!',
+            'min' => 'Podaj więcej niż 5 znaków!',
+        ]);
+
+        Post::where('id', $id)->update([
+            'content' => $request->post_content,
+        ]);
+
+        return back();
     }
 
     /**
