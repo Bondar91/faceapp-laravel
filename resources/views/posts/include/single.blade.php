@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
 
-        @if (Auth::Check() && $user->id === Auth::id())
+        @if (Auth::check() && $post->user_id === Auth::id())
 
             @include('posts.include.dropdown-menu')
 

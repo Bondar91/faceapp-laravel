@@ -32,3 +32,5 @@ Route::patch('/friends/{friend}', 'FriendsController@accept');
 Route::delete('/friends/{friend}', 'FriendsController@destroy');
 
 Route::resource('/posts', 'PostsController', ['except' => ['index', 'create']]);
+
+Route::get('/walls', 'WallsController@index');

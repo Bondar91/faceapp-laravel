@@ -3,9 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @include('layouts.sidebar')
-            <div class="col-md-7">
-                @if(Auth::check() && $user->id === Auth::id())
+
+            <div class="col-md-7 col-md-offset-3">
+                @if(Auth::check())
                     <div class="panel panel-default">
                         <div class="panel-body text-center">
 
@@ -15,11 +15,15 @@
                     </div>
                 @endif
 
-                @foreach($posts as $post)
+                @if ($posts->count() > 0)
+                    @foreach($posts as $post)
 
-                    @include('posts.include.single')
+                        @include('posts.include.single')
 
-                @endforeach
+                    @endforeach
+                @else
+                    Brak postów
+                @endif
 
                 <div class="text-center">
                     {{ $posts }}

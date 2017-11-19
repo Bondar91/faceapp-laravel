@@ -35,7 +35,6 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <form method="GET" action="{{ url('/search') }}" class="navbar-form navbar-left">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control">
                             <span class="input-group-btn">
@@ -55,17 +54,29 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            <li>
+                                <a href="{{ url('/users/' . Auth::id()) }}">
+                                    {{--<img src="{{ url('images/user-avatar/' . Auth::id() . '/25') }}" alt="Avatar" class="img-responsive" style="margin-right:5px;">--}}
+                                    {{Auth::user()->name}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/walls') }}">Tablica</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ url('/users/' . Auth::id() . '/edit') }}">Edytuj swój profil</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Wyloguj się!
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
