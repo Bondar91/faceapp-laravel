@@ -35,8 +35,9 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <form method="GET" action="{{ url('/search') }}" class="navbar-form navbar-left">
                         <div class="input-group">
-                            <input type="text" name="q" class="form-control">
+                            <input type="text" name="q" class="form-control" placeholder="Szukaj...">
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
@@ -56,8 +57,8 @@
                         @else
                             <li>
                                 <a href="{{ url('/users/' . Auth::id()) }}">
-                                    {{--<img src="{{ url('images/user-avatar/' . Auth::id() . '/25') }}" alt="Avatar" class="img-responsive" style="margin-right:5px;">--}}
-                                    {{Auth::user()->name}}
+                                    <img src="{{ url('images/user-avatar/' . Auth::id() . '/25') }}" alt="Avatar" class="img-responsive img-circle pull-left">
+                                    <span style="padding-left:5px;">{{Auth::user()->name}}</span>
                                 </a>
                             </li>
                             <li>

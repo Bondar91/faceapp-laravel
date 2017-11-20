@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->paginate(2);
+        $posts = $user->posts()->paginate(10);
         return view('users.show', compact('user', 'posts'));
     }
 
