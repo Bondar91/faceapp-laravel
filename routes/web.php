@@ -34,3 +34,5 @@ Route::delete('/friends/{friend}', 'FriendsController@destroy');
 Route::resource('/posts', 'PostsController', ['except' => ['index', 'create']]);
 
 Route::get('/walls', 'WallsController@index');
+
+Route::resource('/comments', 'CommentsController', ['except' => ['index', 'create', 'show']]);

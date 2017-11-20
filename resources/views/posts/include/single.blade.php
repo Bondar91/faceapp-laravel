@@ -18,5 +18,11 @@
         <div id="post{{ $post->id }}" style="margin-top: 5px;">
             <p>{{ $post->content }}</p>
         </div>
+
+        <hr>
+
+        @if (Auth::check())
+            @include('comments.create')
+        @endif
     </div>
 </div>
