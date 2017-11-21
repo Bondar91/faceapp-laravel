@@ -24,5 +24,14 @@
         @if (Auth::check())
             @include('comments.create')
         @endif
+
+        <div class="row">
+            <div class="col-md-12">
+                @foreach ($post->comments as $comment)
+                    @include('comments.single')
+                @endforeach
+            </div>
+        </div>
+
     </div>
 </div>
