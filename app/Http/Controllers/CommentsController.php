@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('comment_permission', ['except' =>['show']]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -41,7 +45,9 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+
+        return view('comments.edit', compact('comment'));
     }
 
     /**
@@ -53,7 +59,18 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'comment_content' => 'required|min:5'
+        ],[
+            'required' => 'Pole nie może być puste!',
+            'min' => 'Podaj więcej niż 5 znaków!',
+        ]);
+
+        Comment::where('id', $id)->update([
+            'content' => $request->comment_content,
+        ]);
+
+        return back()->with('message', 'Successfully updeted comment!');
     }
 
     /**
@@ -64,6 +81,13 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+//        Comment::where([
+//            'id' => $id,
+//        ])->delete();
+
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        return back();
     }
 }
