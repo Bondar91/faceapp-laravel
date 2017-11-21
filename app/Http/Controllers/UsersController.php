@@ -24,7 +24,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->paginate(10);
+//        $posts = $user->posts()->paginate(10);
+        $posts = Post::with('comments.user')->where('user_id', $id)->paginate(10);
         return view('users.show', compact('user', 'posts'));
     }
 
