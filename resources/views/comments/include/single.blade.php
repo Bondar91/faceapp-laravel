@@ -3,7 +3,8 @@
 @endif
 
 <div id="comment_{{ $comment->id }}">
-    @if (Auth::check() && $post->user_id === Auth::id())
+
+    @if (Auth::check() && $comment->user_id === Auth::id())
 
         @include('comments.include.dropdown-menu')
 

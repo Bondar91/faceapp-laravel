@@ -24,6 +24,17 @@ class DatabaseSeeder extends Seeder
         $max_comment_per_post = 7;
         $password = "123456";
 
+        //*************************ROLES***********************************//
+        DB::table('roles')->insert([
+            'id' => 1,
+            'type' => 'admin'
+        ]);
+
+        DB::table('roles')->insert([
+            'id' => 2,
+            'type' => 'user'
+        ]);
+
         //*********************** CREATE USERS *****************************//
 
         for ($user_id = 1; $user_id <= $number_of_records; $user_id++)
@@ -34,6 +45,7 @@ class DatabaseSeeder extends Seeder
                     'name' => 'Krystian Bondaruk',
                     'email' => 'bondar91@gmail.com',
                     'sex' => 'm',
+                    'role_id' => 1,
                     'password' => bcrypt($password),
                 ]);
             }
@@ -56,6 +68,7 @@ class DatabaseSeeder extends Seeder
                     'name' => $name,
                     'email' => str_replace('-','', str_slug($name)) . '@' . $faker->safeEmailDomain,
                     'sex' => $sex,
+                    'role_id' => 2,
                     'avatar' => $avatar,
                     'password' => bcrypt($password),
                 ]);
@@ -96,11 +109,16 @@ class DatabaseSeeder extends Seeder
                 ]);
 
                 //************************COMMENTS************************************//
+
+                /* === Pobranie ostatniego psotu skomentowanego  === */
+                $post_id_comment = DB::getPdo()->lastInsertId();
+
                 for ($comment_id = 1; $comment_id <= $faker->numberBetween($min = 1, $max = $max_comment_per_post); $comment_id++)
                 {
+
                     DB::table('comments')->insert([
-                        'post_id' => $faker->numberBetween($min = 1, $max = $number_of_records * $max_post_per_user),
-                        'user_id' => $user_id,
+                        'post_id' => $post_id_comment,
+                        'user_id' => $faker->numberBetween($min = 1, $max = $number_of_records),
                         'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
                         'created_at' => $faker->dateTimeThisYear($max = 'now'),
                     ]);
