@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-12">
                 @foreach ($post->comments as $comment)
-                    @include('comments.single')
+                    @include('comments.include.single')
                 @endforeach
             </div>
         </div>

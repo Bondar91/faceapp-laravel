@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class CheckCommentPermission
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request.Closure
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -19,12 +19,11 @@ class CheckCommentPermission
     {
         $comment_exists = Comment::where([
             'id' => $request->comment,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ])->exists();
 
-        if (!Auth::check() || !$comment_exists)
-        {
-            abort(403, 'Brak dostępu!');
+        if ( ! Auth::check() || ! $comment_exists) {
+            abort(403, 'Brak dostępu');
         }
 
         return $next($request);

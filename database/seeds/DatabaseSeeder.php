@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $number_of_records = 20;
         $max_post_per_user = 20;
+        $max_comment_per_post = 7;
         $password = "123456";
 
         //*********************** CREATE USERS *****************************//
@@ -86,13 +87,24 @@ class DatabaseSeeder extends Seeder
             }
 
             //*********************** CREATE POSTS USER *****************************//
-            for ($i = 1; $i <= $faker->numberBetween($min = 1, $max = $max_post_per_user); $i++)
+            for ($post_id = 1; $post_id <= $faker->numberBetween($min = 1, $max = $max_post_per_user); $post_id++)
             {
                 DB::table('posts')->insert([
                     'user_id' => $user_id,
                     'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
                     'created_at' => $faker->dateTimeThisYear($max = 'now'),
                 ]);
+
+                //************************COMMENTS************************************//
+                for ($comment_id = 1; $comment_id <= $faker->numberBetween($min = 1, $max = $max_comment_per_post); $comment_id++)
+                {
+                    DB::table('comments')->insert([
+                        'post_id' => $faker->numberBetween($min = 1, $max = $number_of_records * $max_post_per_user),
+                        'user_id' => $user_id,
+                        'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                    ]);
+                }
             }
         }
     }

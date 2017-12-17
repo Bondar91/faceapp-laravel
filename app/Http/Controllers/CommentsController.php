@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Comment;
 
 class CommentsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('comment_permission', ['except' =>['show']]);
+        $this->middleware('comment_permission', ['except' =>['store']]);
     }
     /**
      * Store a newly created resource in storage.
@@ -20,13 +21,15 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        $post_id_comment_content = 'post_' .$request->post_id. '_comment_content';
+        $post_id_comment_content = 'post_' . $request->post_id .'_comment_content';
+
         $this->validate($request, [
-            $post_id_comment_content => 'required|min:5'
-        ],[
-            'required' => 'Pole nie może być puste!',
-            'min' => 'Podaj więcej niż 5 znaków!',
+            $post_id_comment_content => 'required|min:5',
+        ], [
+            'required' => 'Musisz wpisać jakąś treść',
+            'min' => 'Treść musi mieć minimum :min znaków',
         ]);
+
         Comment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
