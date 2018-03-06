@@ -108,7 +108,7 @@ class UsersController extends Controller
 //            'sex' => $request->sex,
 //        ]);
 
-        return back();
+        return back()->with('alert-success', 'Użytkownik edytowany poprawnie!');
     }
 
     /**

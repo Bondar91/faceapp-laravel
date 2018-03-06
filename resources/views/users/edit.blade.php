@@ -4,7 +4,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                @if(session()->has('alert-success'))
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ session()->get('alert-success') }}
+                    </div>
+                @endif
                 <div class="panel panel-default">
+
                     <div class="panel-heading">Użytkownik {{ $user->id }}</div>
 
                     <div class="panel-body ">
