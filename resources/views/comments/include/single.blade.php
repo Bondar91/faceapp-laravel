@@ -2,7 +2,7 @@
     <hr style="margin: 10px 0;">
 @endif
 
-<div id="comment_{{ $comment->id }}">
+<div id="comment_{{ $comment->id }}" class="{{ $comment->trashed() ? 'trashed' : '' }}">
 
     @if (belongs_to_auth($comment->user_id) || is_admin())
 

@@ -25,7 +25,20 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 //        $posts = $user->posts()->paginate(10);
-        $posts = Post::with('comments.user')->where('user_id', $id)->paginate(10);
+        if(is_admin())
+        {
+            $posts = Post::with('comments.user')
+                ->where('user_id', $id)
+                ->withTrashed()
+                ->paginate(10);
+        }
+        else
+        {
+            $posts = Post::with('comments.user')
+                ->where('user_id', $id)
+                ->paginate(10);
+        }
+
         return view('users.show', compact('user', 'posts'));
     }
 

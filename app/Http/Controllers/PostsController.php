@@ -43,7 +43,17 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        if(is_admin())
+        {
+            $post = Post::withTrashed()
+                ->findOrFail($id);
+
+        }
+        else
+        {
+            $post = Post::findOrFail($id);
+        }
+
         return view('posts.show', compact('post'));
     }
 
@@ -55,7 +65,16 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        if(is_admin())
+        {
+            $post = Post::withTrashed()
+                ->findOrFail($id);
+
+        }
+        else
+        {
+            $post = Post::findOrFail($id);
+        }
 
         return view('posts.edit', compact('post'));
     }
@@ -76,9 +95,20 @@ class PostsController extends Controller
             'min' => 'Podaj więcej niż 5 znaków!',
         ]);
 
-        Post::where('id', $id)->update([
-            'content' => $request->post_content,
-        ]);
+        if(is_admin())
+        {
+            Post::where('id', $id)->withTrashed()->update([
+                'content' => $request->post_content,
+            ]);
+        }
+        else
+        {
+            Post::where('id', $id)->update([
+                'content' => $request->post_content,
+            ]);
+        }
+
+
 
         return back();
     }

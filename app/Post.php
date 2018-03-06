@@ -32,6 +32,14 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        if(is_admin())
+        {
+            return $this->hasMany('App\Comment')->withTrashed();
+        }
+        else
+        {
+            return $this->hasMany('App\Comment');
+        }
+
     }
 }

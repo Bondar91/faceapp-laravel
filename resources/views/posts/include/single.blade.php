@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default{{ $post->trashed() ? ' trashed' : '' }}">
     <div class="panel-body">
 
         <?php var_dump(Auth::user()->role->type); ?>

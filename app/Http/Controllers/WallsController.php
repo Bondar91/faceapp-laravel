@@ -39,10 +39,23 @@ class WallsController extends Controller
 //            ->orderBy('created_at', 'desc')
 //            ->paginate(10);
 
-        $posts = Post::with('comments.user')
-            ->whereIn('user_id', $friends_ids_array)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        if(is_admin())
+        {
+            $posts = Post::with('comments.user')
+                ->whereIn('user_id', $friends_ids_array)
+                ->orderBy('created_at', 'desc')
+                ->withTrashed()
+                ->paginate(10);
+        }
+        else
+        {
+            $posts = Post::with('comments.user')
+                ->whereIn('user_id', $friends_ids_array)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+        }
+
+
         return view('walls.index', compact('posts'));
     }
 }
