@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post')->orderBy('created_at', 'desc');
     }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 }

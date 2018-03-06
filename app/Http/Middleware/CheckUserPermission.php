@@ -16,7 +16,7 @@ class CheckUserPermission
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || $request->user != Auth::id())
+        if (!Auth::check() || $request->user != Auth::id() && !is_admin())
         {
             abort(403, 'Brak dostępu!');
         }

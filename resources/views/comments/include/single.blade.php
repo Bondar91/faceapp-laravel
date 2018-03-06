@@ -4,7 +4,7 @@
 
 <div id="comment_{{ $comment->id }}">
 
-    @if (Auth::check() && $comment->user_id === Auth::id())
+    @if (belongs_to_auth($comment->user_id) || is_admin())
 
         @include('comments.include.dropdown-menu')
 

@@ -1,7 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
 
-        @if (Auth::check() && $post->user_id === Auth::id())
+        <?php var_dump(Auth::user()->role->type); ?>
+
+        @if (belongs_to_auth($post->user_id) || is_admin())
 
             @include('posts.include.dropdown-menu')
 
