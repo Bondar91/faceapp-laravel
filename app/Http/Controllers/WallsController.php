@@ -42,6 +42,8 @@ class WallsController extends Controller
         if(is_admin())
         {
             $posts = Post::with('comments.user')
+                ->with('comments.likes')
+                ->with('likes')
                 ->whereIn('user_id', $friends_ids_array)
                 ->orderBy('created_at', 'desc')
                 ->withTrashed()
@@ -50,6 +52,8 @@ class WallsController extends Controller
         else
         {
             $posts = Post::with('comments.user')
+                ->with('comments.likes')
+                ->with('likes')
                 ->whereIn('user_id', $friends_ids_array)
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);

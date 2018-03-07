@@ -19,6 +19,8 @@ class CreateLikesTable extends Migration
             $table->integer('post_id')->unsigned()->nullable();
             $table->integer('comment_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->unique(['user_id', 'post_id']);
+            $table->unique(['user_id', 'comment_id']);
         });
     }
 

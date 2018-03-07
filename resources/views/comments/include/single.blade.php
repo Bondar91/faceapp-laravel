@@ -14,6 +14,8 @@
         <a href="">{{ $comment->user->name }}</a><br>
         {{ $comment->content }}
     </div>
+
+    @include('comments.include.likes')
 </div>
 
 
