@@ -21,6 +21,8 @@
             <p>{{ $post->content }}</p>
         </div>
 
+        @include('posts.include.likes')
+
         <hr>
 
         @if (Auth::check())
