@@ -38,4 +38,4 @@ Route::get('/walls', 'WallsController@index');
 Route::resource('/comments', 'CommentsController', ['except' => ['index', 'create', 'show']]);
 
 Route::post('/likes', 'LikesController@add');
-Route::delete('/likes/{like}', 'LikesController@destroy');
+Route::delete('/likes', 'LikesController@destroy');
