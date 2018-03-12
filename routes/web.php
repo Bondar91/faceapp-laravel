@@ -39,3 +39,5 @@ Route::resource('/comments', 'CommentsController', ['except' => ['index', 'creat
 
 Route::post('/likes', 'LikesController@add');
 Route::delete('/likes', 'LikesController@destroy');
+
+Route::get('/notifications', 'NotificationsController@index');

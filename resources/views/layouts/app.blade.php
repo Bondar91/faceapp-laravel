@@ -64,6 +64,9 @@
                             <li>
                                 <a href="{{ url('/walls') }}">Tablica</a>
                             </li>
+                            <li>
+                                <a href="{{ url('/notifications') }}">Powiadomienia {!! Auth::user()->unreadNotifications->count() > 0 ?'<span class="label label-danger">' . Auth::user()->unreadNotifications->count() . '</span>' : '' !!}</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <span class="caret"></span>
