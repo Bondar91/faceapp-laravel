@@ -14,7 +14,7 @@ button.btn-delete:hover {
     background-color: #f5f5f5;
 }
 
-.trashed, .notifiaction {
+.trashed, .notification {
     opacity: .3;
     transition: opacity .5s;
 }

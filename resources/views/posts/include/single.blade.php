@@ -1,8 +1,6 @@
 <div class="panel panel-default{{ $post->trashed() ? ' trashed' : '' }}">
     <div class="panel-body">
 
-        <?php var_dump(Auth::user()->role->type); ?>
-
         @if (belongs_to_auth($post->user_id) || is_admin())
 
             @include('posts.include.dropdown-menu')

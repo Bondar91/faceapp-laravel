@@ -46,5 +46,5 @@ function belongs_to_auth($user_id)
 
 function is_admin()
 {
-    return (Auth::user()->role->type === 'admin');
+    return (Auth::check() && Auth::user()->role->type === 'admin');
 }

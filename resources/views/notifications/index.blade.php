@@ -14,7 +14,7 @@
                             <ul class="list-group" >
                                 @foreach(Auth::user()->notifications as $notification)
                                 <li class="list-group-item{{ !is_null($notification->read_at) ? ' notification' : '' }}">
-                                    {{ $notification->data['message'] }}
+                                    {!!  $notification->data['message'] !!}
 
                                     @if (is_null($notification->read_at))
                                         <form method="POST" action="{{ url('notifications/' . $notification->id) }}" class="pull-right">
