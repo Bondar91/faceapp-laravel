@@ -59,11 +59,11 @@ class Liked extends Notification
     {
         $user_link = '<a href="' . url('users/' . Auth::id()) . '">' . Auth::user()->name . '</a>';
 
-        if (is_null($this->like['comment'])) {
-            $post_link = '<a href="' . url('posts/' . $this->like['post']->id) . '">Twój post</a>';
+        if (is_null($this->content['comment'])) {
+            $post_link = '<a href="' . url('posts/' . $this->content['post']->id) . '">Twój post</a>';
             $message = 'Użytkownik ' . $user_link . ' polubił ' . $post_link;
         } else {
-            $comment_link = '<a href="' . url('posts/' . $this->like['post']->id . '#comment' . $this->like['comment']->id) . '">Twój komentarz</a>';
+            $comment_link = '<a href="' . url('posts/' . $this->content['post']->id . '#comment_id' . $this->content['comment']->id) . '">Twój komentarz</a>';
             $message = 'Użytkownik ' . $user_link . ' polubił ' . $comment_link;
         }
 
