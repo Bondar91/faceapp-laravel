@@ -22,3 +22,12 @@ button.btn-delete:hover {
 .trashed:hover {
     opacity: 1;
 }
+
+.highlight {
+    transition: all .5s;
+}
+
+.highlightYellow {
+    background-color: yellow;
+}
+

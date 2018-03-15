@@ -45,7 +45,7 @@ class PostsController extends Controller
     {
         if(is_admin())
         {
-            $post = Post::withTrashed()
+            $post = Post::withTrashed()->first()
                 ->findOrFail($id);
 
         }
